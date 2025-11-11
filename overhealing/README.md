@@ -1,16 +1,19 @@
-# React + Vite
+🩹 OVERHEALING
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+“Cuidar de quem cuida — antes que o sistema queime.”
 
-Currently, two official plugins are available:
+OVERHEALING é um projeto que une tecnologia, design e reflexão emocional para explorar o burnout, o equilíbrio e o processo de cura dentro do ambiente de trabalho.
+O sistema conecta pessoas, dados e emoções por meio de uma interface interativa, sensores físicos (ESP32) e análise inteligente em Python, criando uma ponte entre o estado emocional humano e a resposta tecnológica.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔧 Estrutura do Projeto
 
-## React Compiler
+Frontend (Web) – Interface que exibe o estado emocional (“healbots”), status do ambiente e níveis de bem-estar.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+ESP32 – Coleta de dados físicos e ambientais (como temperatura, luz, movimento ou batimentos).
 
-## Expanding the ESLint configuration
+Backend (Python) – Responsável por processar as informações do site e do ESP32, analisando e devolvendo feedbacks ao sistema.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🌈 Conceito
+
+OVERHEALING propõe uma experiência simbólica onde cada “healbot” representa um estado emocional — do equilíbrio à exaustão.
+O projeto visa trazer consciência emocional e promover o autocuidado, mostrando como a tecnologia pode ser empática e regeneradora.
