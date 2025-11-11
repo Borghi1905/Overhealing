@@ -16,3 +16,7 @@ Backend (Python) – Responsável por processar as informações do site e do ES
 
 OVERHEALING propõe uma experiência simbólica onde cada “healbot” representa um estado emocional — do equilíbrio à exaustão.
 O projeto visa trazer consciência emocional e promover o autocuidado, mostrando como a tecnologia pode ser empática e regeneradora.
+
+
+
+RM563484 - GABRIEL BORGHI DE FARIA
