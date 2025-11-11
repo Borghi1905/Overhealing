@@ -2,21 +2,25 @@
   {
     "nome": "Gabriel Faria",
     "ultimoDia": "2025-11-08",
-    "estado": "feliz"
+    "estado": "feliz",
+    "empresa": "Facebook"
   },
   {
     "nome": "Luana Costa",
     "ultimoDia": "2025-11-06",
-    "estado": "cansado"
+    "estado": "cansado",
+    "empresa": "Google"
   },
   {
     "nome": "Rafael Gomes",
     "ultimoDia": "2025-11-03",
-    "estado": "muito cansado"
+    "estado": "muito cansado",
+    "empresa": "Facebook"
   },
   {
     "nome": "Clara Rocha",
     "ultimoDia": "2025-10-29",
-    "estado": "burnout"
+    "estado": "burnout",
+    "empresa": "Facebook"
   }
 ]

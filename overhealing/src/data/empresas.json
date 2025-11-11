@@ -1,0 +1,14 @@
+[
+  {
+    "nome": "Facebook",
+    "ambiente": 22
+  },
+  {
+    "nome": "Google",
+    "ambiente": 78
+  },
+  {
+    "nome": "OpenAI",
+    "ambiente": 54
+  }
+]

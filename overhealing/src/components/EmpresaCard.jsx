@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import funcionariosJSON from "../data/funcionarios.json";
+import empresasJSON from "../data/empresas.json";
 import "../styles/EmpresaCard.css";
 
 export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
   const [aberto, setAberto] = useState(false);
   const [funcionarios, setFuncionarios] = useState([]);
+  const [ambiente, setAmbiente] = useState(null);
   const [novoFuncionario, setNovoFuncionario] = useState({
     nome: "",
     ultimoDia: "",
@@ -12,16 +14,26 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
   });
   const [funcionarioSelecionado, setFuncionarioSelecionado] = useState(null);
 
-  // Carrega funcionários do JSON com data padrão se não existir
-useEffect(() => {
-  const hoje = new Date().toLocaleDateString("pt-BR");
-  const dadosCompletos = funcionariosJSON.map((f) => ({
-    ...f,
-    dataVisualizacao: hoje, // ✅ sempre o dia atual
-  }));
-  setFuncionarios(dadosCompletos);
-}, []);
+  // ✅ Carrega funcionários e ambiente do JSON
+  useEffect(() => {
+    const hoje = new Date().toLocaleDateString("pt-BR");
 
+    // filtra funcionários só da empresa atual
+    const filtrados = funcionariosJSON
+      .filter((f) => f.empresa?.toLowerCase() === nome.toLowerCase())
+      .map((f) => ({
+        ...f,
+        dataVisualizacao: hoje,
+      }));
+
+    setFuncionarios(filtrados);
+
+    // carrega dados de ambiente da empresa
+    const dadosEmpresa = empresasJSON.find(
+      (e) => e.nome.toLowerCase() === nome.toLowerCase()
+    );
+    if (dadosEmpresa) setAmbiente(dadosEmpresa.ambiente);
+  }, [nome]);
 
   const adicionarFuncionario = (e) => {
     e.preventDefault();
@@ -29,6 +41,7 @@ useEffect(() => {
 
     const novo = {
       ...novoFuncionario,
+      empresa: nome,
       dataVisualizacao: new Date().toLocaleDateString("pt-BR"),
     };
 
@@ -50,23 +63,48 @@ useEffect(() => {
   const getCorEstado = (estado) => {
     switch (estado?.toLowerCase()) {
       case "feliz":
-        return "#3b82f6"; // azul
+        return "#3b82f6";
       case "cansado":
-        return "#22c55e"; // verde
+        return "#22c55e";
       case "muito cansado":
-        return "#facc15"; // amarelo
+        return "#facc15";
       case "burnout":
-        return "#ef4444"; // vermelho
+        return "#ef4444";
       default:
-        return "#9ca3af"; // cinza
+        return "#9ca3af";
     }
   };
+
+  const getAmbienteInfo = (valor) => {
+    if (valor >= 75)
+      return { texto: "Ambiente bom", cor: "#3b82f6", animacao: false };
+    if (valor >= 50)
+      return { texto: "Ambiente +/-", cor: "#22c55e", animacao: false };
+    if (valor >= 25)
+      return { texto: "Ambiente ruim", cor: "#facc15", animacao: false };
+    return { texto: "Ambiente péssimo", cor: "#ef4444", animacao: true };
+  };
+
+  const ambienteInfo = ambiente !== null ? getAmbienteInfo(ambiente) : null;
 
   return (
     <div className={`empresa-card ${burnout ? "burnout" : ""}`}>
       {/* CABEÇALHO */}
       <div className="empresa-header">
-        <h3>{nome}</h3>
+        <div className="empresa-titulo">
+          <h3>{nome}</h3>
+          {ambienteInfo && (
+            <div
+              className={`ambiente-indicador ${
+                ambienteInfo.animacao ? "pulse" : ""
+              }`}
+              style={{ backgroundColor: ambienteInfo.cor }}
+            >
+              {ambienteInfo.texto} — {ambiente}%
+            </div>
+          )}
+        </div>
+
         <div className="botoes-header">
           <button onClick={() => setAberto(!aberto)}>
             {aberto ? "Fechar" : "Ver Funcionários"}
@@ -93,9 +131,15 @@ useEffect(() => {
                     onClick={() => setFuncionarioSelecionado(f)}
                   >
                     <div className="info">
-                      <p><strong>Nome:</strong> {f.nome}</p>
-                      <p><strong>Último dia:</strong> {f.ultimoDia}</p>
-                      <p><strong>Visualizado em:</strong> {f.dataVisualizacao}</p>
+                      <p>
+                        <strong>Nome:</strong> {f.nome}
+                      </p>
+                      <p>
+                        <strong>Último dia:</strong> {f.ultimoDia}
+                      </p>
+                      <p>
+                        <strong>Visualizado em:</strong> {f.dataVisualizacao}
+                      </p>
                     </div>
 
                     {f.estado && (
@@ -176,11 +220,20 @@ useEffect(() => {
 
       {/* MODAL FUNCIONÁRIO */}
       {funcionarioSelecionado && (
-        <div className="modal-overlay" onClick={() => setFuncionarioSelecionado(null)}>
+        <div
+          className="modal-overlay"
+          onClick={() => setFuncionarioSelecionado(null)}
+        >
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>{funcionarioSelecionado.nome}</h2>
-            <p><strong>Último dia de folga:</strong> {funcionarioSelecionado.ultimoDia}</p>
-            <p><strong>Visualizado em:</strong> {funcionarioSelecionado.dataVisualizacao}</p>
+            <p>
+              <strong>Último dia de folga:</strong>{" "}
+              {funcionarioSelecionado.ultimoDia}
+            </p>
+            <p>
+              <strong>Visualizado em:</strong>{" "}
+              {funcionarioSelecionado.dataVisualizacao}
+            </p>
             <p>
               <strong>Estado atual:</strong>{" "}
               <span
@@ -192,7 +245,10 @@ useEffect(() => {
                 {funcionarioSelecionado.estado}
               </span>
             </p>
-            <button onClick={() => setFuncionarioSelecionado(null)} className="fechar-modal">
+            <button
+              onClick={() => setFuncionarioSelecionado(null)}
+              className="fechar-modal"
+            >
               Fechar
             </button>
           </div>
