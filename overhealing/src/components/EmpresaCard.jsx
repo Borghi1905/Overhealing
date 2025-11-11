@@ -8,6 +8,7 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
     nome: "",
     ultimoDia: "",
   });
+  const [funcionarioSelecionado, setFuncionarioSelecionado] = useState(null); // 👈 novo estado
 
   const adicionarFuncionario = (e) => {
     e.preventDefault();
@@ -58,14 +59,21 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
             ) : (
               <div className="funcionarios-list">
                 {funcionarios.map((f, i) => (
-                  <div key={i} className="funcionario-card">
+                  <div
+                    key={i}
+                    className="funcionario-card"
+                    onClick={() => setFuncionarioSelecionado(f)} // 👈 abre modal
+                  >
                     <div className="info">
                       <p><strong>Nome:</strong> {f.nome}</p>
                       <p><strong>Último dia:</strong> {f.ultimoDia}</p>
                       <p><strong>Visualizado em:</strong> {f.dataVisualizacao}</p>
                     </div>
                     <button
-                      onClick={() => removerFuncionario(i)}
+                      onClick={(e) => {
+                        e.stopPropagation(); // impede abrir modal
+                        removerFuncionario(i);
+                      }}
                       className="remover-funcionario"
                     >
                       Remover
@@ -120,6 +128,20 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL DE FUNCIONÁRIO */}
+      {funcionarioSelecionado && (
+        <div className="modal-overlay" onClick={() => setFuncionarioSelecionado(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>{funcionarioSelecionado.nome}</h2>
+            <p><strong>Último dia de folga:</strong> {funcionarioSelecionado.ultimoDia}</p>
+            <p><strong>Visualizado em:</strong> {funcionarioSelecionado.dataVisualizacao}</p>
+            <button onClick={() => setFuncionarioSelecionado(null)} className="fechar-modal">
+              Fechar
+            </button>
           </div>
         </div>
       )}
