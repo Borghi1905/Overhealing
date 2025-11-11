@@ -331,3 +331,56 @@
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
 }
+
+.estado-indicador {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: gray;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: capitalize;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.funcionario-card {
+  position: relative; /* ✅ necessário para o estado ficar dentro do card */
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 14px;
+  transition: 0.2s;
+}
+
+.estado-indicador {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: gray;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: capitalize;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 🔥 Animação de pulsar para burnout */
+@keyframes pulse-burnout {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 1);
+  }
+}
+
+.estado-indicador.pulse {
+  animation: pulse-burnout 1.2s infinite;
+}

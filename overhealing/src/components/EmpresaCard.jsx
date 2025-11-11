@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import funcionariosJSON from "../data/funcionarios.json";
 import "../styles/EmpresaCard.css";
 
 export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
@@ -7,8 +8,19 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
   const [novoFuncionario, setNovoFuncionario] = useState({
     nome: "",
     ultimoDia: "",
+    estado: "",
   });
-  const [funcionarioSelecionado, setFuncionarioSelecionado] = useState(null); // 👈 novo estado
+  const [funcionarioSelecionado, setFuncionarioSelecionado] = useState(null);
+
+  // Carrega funcionários do JSON com data padrão se não existir
+  useEffect(() => {
+    const dadosCompletos = funcionariosJSON.map((f) => ({
+      ...f,
+      dataVisualizacao:
+        f.dataVisualizacao || new Date().toLocaleDateString("pt-BR"),
+    }));
+    setFuncionarios(dadosCompletos);
+  }, []);
 
   const adicionarFuncionario = (e) => {
     e.preventDefault();
@@ -20,7 +32,7 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
     };
 
     setFuncionarios([...funcionarios, novo]);
-    setNovoFuncionario({ nome: "", ultimoDia: "" });
+    setNovoFuncionario({ nome: "", ultimoDia: "", estado: "" });
   };
 
   const removerFuncionario = (index) => {
@@ -31,6 +43,21 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
   const removerEmpresa = () => {
     if (window.confirm(`Deseja realmente remover a empresa "${nome}"?`)) {
       if (onRemoverEmpresa) onRemoverEmpresa(nome);
+    }
+  };
+
+  const getCorEstado = (estado) => {
+    switch (estado?.toLowerCase()) {
+      case "feliz":
+        return "#3b82f6"; // azul
+      case "cansado":
+        return "#22c55e"; // verde
+      case "muito cansado":
+        return "#facc15"; // amarelo
+      case "burnout":
+        return "#ef4444"; // vermelho
+      default:
+        return "#9ca3af"; // cinza
     }
   };
 
@@ -62,16 +89,28 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
                   <div
                     key={i}
                     className="funcionario-card"
-                    onClick={() => setFuncionarioSelecionado(f)} // 👈 abre modal
+                    onClick={() => setFuncionarioSelecionado(f)}
                   >
                     <div className="info">
                       <p><strong>Nome:</strong> {f.nome}</p>
                       <p><strong>Último dia:</strong> {f.ultimoDia}</p>
                       <p><strong>Visualizado em:</strong> {f.dataVisualizacao}</p>
                     </div>
+
+                    {f.estado && (
+                      <div
+                        className={`estado-indicador ${
+                          f.estado.toLowerCase() === "burnout" ? "pulse" : ""
+                        }`}
+                        style={{ backgroundColor: getCorEstado(f.estado) }}
+                      >
+                        {f.estado}
+                      </div>
+                    )}
+
                     <button
                       onClick={(e) => {
-                        e.stopPropagation(); // impede abrir modal
+                        e.stopPropagation();
                         removerFuncionario(i);
                       }}
                       className="remover-funcionario"
@@ -121,7 +160,9 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setNovoFuncionario({ nome: "", ultimoDia: "" })}
+                  onClick={() =>
+                    setNovoFuncionario({ nome: "", ultimoDia: "", estado: "" })
+                  }
                   className="cancelar"
                 >
                   Cancelar
@@ -132,13 +173,24 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
         </div>
       )}
 
-      {/* MODAL DE FUNCIONÁRIO */}
+      {/* MODAL FUNCIONÁRIO */}
       {funcionarioSelecionado && (
         <div className="modal-overlay" onClick={() => setFuncionarioSelecionado(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>{funcionarioSelecionado.nome}</h2>
             <p><strong>Último dia de folga:</strong> {funcionarioSelecionado.ultimoDia}</p>
             <p><strong>Visualizado em:</strong> {funcionarioSelecionado.dataVisualizacao}</p>
+            <p>
+              <strong>Estado atual:</strong>{" "}
+              <span
+                style={{
+                  color: getCorEstado(funcionarioSelecionado.estado),
+                  fontWeight: "bold",
+                }}
+              >
+                {funcionarioSelecionado.estado}
+              </span>
+            </p>
             <button onClick={() => setFuncionarioSelecionado(null)} className="fechar-modal">
               Fechar
             </button>
