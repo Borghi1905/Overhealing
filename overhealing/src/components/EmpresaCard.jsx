@@ -13,14 +13,15 @@ export default function EmpresaCard({ nome, burnout, onRemoverEmpresa }) {
   const [funcionarioSelecionado, setFuncionarioSelecionado] = useState(null);
 
   // Carrega funcionários do JSON com data padrão se não existir
-  useEffect(() => {
-    const dadosCompletos = funcionariosJSON.map((f) => ({
-      ...f,
-      dataVisualizacao:
-        f.dataVisualizacao || new Date().toLocaleDateString("pt-BR"),
-    }));
-    setFuncionarios(dadosCompletos);
-  }, []);
+useEffect(() => {
+  const hoje = new Date().toLocaleDateString("pt-BR");
+  const dadosCompletos = funcionariosJSON.map((f) => ({
+    ...f,
+    dataVisualizacao: hoje, // ✅ sempre o dia atual
+  }));
+  setFuncionarios(dadosCompletos);
+}, []);
+
 
   const adicionarFuncionario = (e) => {
     e.preventDefault();
