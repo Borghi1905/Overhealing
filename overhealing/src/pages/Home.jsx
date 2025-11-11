@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import EmpresaCard from "../components/EmpresaCard";
 import "../styles/Home.css";
 
-export default function Home({ burnout, setBurnout }) {
+export default function Home() {
+  const [burnout, setBurnout] = useState(false);
   const [empresas, setEmpresas] = useState([]);
   const [novaEmpresa, setNovaEmpresa] = useState("");
 
@@ -13,11 +14,14 @@ export default function Home({ burnout, setBurnout }) {
     const nova = {
       id: Date.now(),
       nome: novaEmpresa,
-      burnout: false,
     };
 
     setEmpresas([...empresas, nova]);
     setNovaEmpresa("");
+  };
+
+  const removerEmpresa = (nome) => {
+    setEmpresas(empresas.filter((e) => e.nome !== nome));
   };
 
   return (
@@ -33,7 +37,7 @@ export default function Home({ burnout, setBurnout }) {
         </button>
       </header>
 
-      {/* CONTEÚDO DE CADASTRO DE EMPRESAS */}
+      {/* CONTEÚDO */}
       <section className="home-content">
         <div className="empresa-form">
           <h2 className="text-2xl font-semibold mb-4">Cadastrar nova empresa</h2>
@@ -69,7 +73,8 @@ export default function Home({ burnout, setBurnout }) {
               <EmpresaCard
                 key={empresa.id}
                 nome={empresa.nome}
-                burnout={empresa.burnout}
+                burnout={burnout}
+                onRemoverEmpresa={removerEmpresa} // <-- AQUI
               />
             ))
           )}
