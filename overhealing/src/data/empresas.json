@@ -1,14 +1,22 @@
 [
   {
-    "nome": "Facebook",
-    "ambiente": 22
+    "nome": "FACEBOOK",
+    "ambiente": 35
   },
   {
-    "nome": "Google",
-    "ambiente": 78
+    "nome": "GOOGLE",
+    "ambiente": 72
   },
   {
-    "nome": "OpenAI",
-    "ambiente": 54
+    "nome": "MICROSOFT",
+    "ambiente": 66
+  },
+  {
+    "nome": "AMAZON",
+    "ambiente": 49
+  },
+  {
+    "nome": "IBM",
+    "ambiente": 80
   }
 ]
