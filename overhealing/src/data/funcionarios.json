@@ -50,5 +50,15 @@
   {"nome": "Caio Oliveira", "ultimoDia": "2025-11-09", "estado": "feliz", "empresa": "FACEBOOK"},
   {"nome": "Alice Rodrigues", "ultimoDia": "2025-11-06", "estado": "cansado", "empresa": "GOOGLE"},
   {"nome": "Enzo Costa", "ultimoDia": "2025-11-04", "estado": "muito cansado", "empresa": "MICROSOFT"},
-  {"nome": "Yasmin Mendes", "ultimoDia": "2025-10-30", "estado": "burnout", "empresa": "AMAZON"}
+  {"nome": "Yasmin Mendes", "ultimoDia": "2025-10-30", "estado": "burnout", "empresa": "AMAZON"},
+  {"nome": "Marcos Brito", "ultimoDia": "2025-11-08", "estado": "feliz", "empresa": "IBM"},
+  {"nome": "Helena Duarte", "ultimoDia": "2025-11-06", "estado": "cansado", "empresa": "AMAZON"},
+  {"nome": "Otávio Ramos", "ultimoDia": "2025-11-04", "estado": "muito cansado", "empresa": "MICROSOFT"},
+  {"nome": "Carla Menezes", "ultimoDia": "2025-10-29", "estado": "burnout", "empresa": "GOOGLE"},
+  {"nome": "Renato Figueiredo", "ultimoDia": "2025-11-09", "estado": "feliz", "empresa": "FACEBOOK"},
+  {"nome": "Melissa Cardoso", "ultimoDia": "2025-11-05", "estado": "cansado", "empresa": "IBM"},
+  {"nome": "Igor Fernandes", "ultimoDia": "2025-11-03", "estado": "muito cansado", "empresa": "AMAZON"},
+  {"nome": "Patrícia Nunes", "ultimoDia": "2025-10-30", "estado": "burnout", "empresa": "MICROSOFT"},
+  {"nome": "Eduardo Cunha", "ultimoDia": "2025-11-07", "estado": "feliz", "empresa": "GOOGLE"},
+  {"nome": "Laura Martins", "ultimoDia": "2025-11-06", "estado": "cansado", "empresa": "FACEBOOK"}
 ]
