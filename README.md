@@ -20,6 +20,6 @@ O projeto visa trazer consciência emocional e promover o autocuidado, mostrando
 COMO USAR ? 
 Adicione as empresas "facebook","google","ibm","amazon" e "microsoft", são empresas ja cadastradas e com o json 100% completo
 
-Link do repositorio : https://github.com/Borghi1905/Overhealing/edit/main/README.md
+Link do repositorio : https://github.com/Borghi1905/Overhealing
 
 RM563484 - GABRIEL BORGHI DE FARIA
